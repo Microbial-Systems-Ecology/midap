@@ -83,19 +83,23 @@ class OmniSegmentation(SegmentationPredictor):
                         gpu=self.gpu_available, model_type=model_name
                     )
                 # predict, we only need the mask, see omnipose tutorial for the rest of the args
-                mask, _, _ = model.eval(
-                    img,
-                    channels=[0, 0],
-                    rescale=None,
-                    mask_threshold=-1,
-                    transparency=True,
-                    flow_threshold=0,
-                    omni=True,
-                    resample=True,
-                    verbose=0,
-                )
+                try:
+                    mask, _, _ = model.eval(
+                        img,
+                        channels=[0, 0],
+                        rescale=None,
+                        mask_threshold=-1,
+                        transparency=True,
+                        flow_threshold=0,
+                        omni=True,
+                        resample=True,
+                        verbose=0,
+                    )
                 # omni removes axes that are just 1
-                seg = (mask > 0.5).astype(int)
+                    seg = (mask > 0.5).astype(int)
+                except ValueError as e:
+                    self.logger.warning(f"Segmentation with model {model_name} failed: {e}")
+                    seg = np.zeros_like(img, dtype=int)
 
                 # now we create a plot that can be used as a button image
                 fig, ax = plt.subplots(figsize=(3, 3))
