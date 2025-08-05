@@ -5,7 +5,6 @@ import os
 
 def get_requirements(version = "core"):
     requirements = [
-        "jaraco.functools<=4.1.0"
         "btrack==0.4.6",
         "coverage>=7.3.2",
         "gitpython>=3.1.40",
@@ -23,6 +22,7 @@ def get_requirements(version = "core"):
         "tqdm>=4.65.0",
         "build",
         "twine",
+        "jaraco.functools<=4.1.0",
     ]
 
     if platform.processor() == "arm":
@@ -31,7 +31,6 @@ def get_requirements(version = "core"):
     # Check if installation is happening on euler
     if os.getenv("MIDAP_INSTALL_VERSION", "core").lower() == "euler":
         requirements = [
-            "jaraco.functools<=4.1.0"
             "btrack==0.4.6",
             "coverage>=7.3.2",
             "gitpython>=3.1.40",
@@ -45,6 +44,7 @@ def get_requirements(version = "core"):
             "tqdm>=4.65.0",
             "build",
             "twine",
+            "jaraco.functools<=4.1.0",
         ]
 
     return requirements
