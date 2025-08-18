@@ -22,6 +22,7 @@ def get_requirements(version = "core"):
         "tqdm>=4.65.0",
         "build",
         "twine",
+        "jaraco.functools<=4.1.0",
     ]
 
     if platform.processor() == "arm":
@@ -43,6 +44,7 @@ def get_requirements(version = "core"):
             "tqdm>=4.65.0",
             "build",
             "twine",
+            "jaraco.functools<=4.1.0",
         ]
 
     return requirements
