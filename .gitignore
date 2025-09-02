@@ -8,6 +8,7 @@ model_weights
 example_data
 benchmark_data
 psf
+fine_tune_data/
 .idea/
 *.swp
 *~

@@ -8,20 +8,14 @@
 # MIDAP
 MIDAP is a flexible and user-friendly software for the automated analysis of live-cell microscopy images of bacteria growing in a monolayer in microfluidics chambers. Through its graphical user interface, a selection of state-of-the-art segmentation and tracking tools are provided, allowing the user to select the most suited ones for their particular data set. Thanks to its modular structure, additional segmentation and tracking tools can easily be integrated as they are becoming available. After running the automated image analysis, the user has the option to visually inspect and, if needed, manually correct segmentation and tracking.
 
+For advanced post-hoc visualizations and analyses on experiment wide data use the [midap-tools](https://github.com/Microbial-Systems-Ecology/midap-tools) package that is fully compatible with the midap output format
+
 ## Standard Installation
 
 The installation was tested on macOS Sequoia (15.1) and Ubuntu 22.04.
 
 MIDAP requires Python 3.10. To create an environemnt with the right Python version, please use conda. Further instructions for the download of miniconda can be found [here](https://docs.anaconda.com/miniconda/install/).
 
-### Installation with pip
-
-Create a conda environment and install midap with pip within the conda environment:
-```
-conda create --name midap python=3.10
-conda activate midap
-pip install midap
-```
 
 ### Clone of GitHub repository and installation with pip
 
@@ -69,6 +63,15 @@ optional arguments:
 ```
 
 For an installation with GPU support, please refer to the documentation.   
+
+### Installation with pip (Depreceated for the time being, will install an outdated version that can crash with omnisegmentation!)
+
+Create a conda environment and install midap with pip within the conda environment:
+```
+conda create --name midap python=3.10
+conda activate midap
+pip install midap
+```
 
 ## Documentation
 

@@ -22,7 +22,6 @@ def get_requirements(version = "core"):
         "tqdm>=4.65.0",
         "build",
         "twine",
-        "jaraco.functools<=4.1.0",
     ]
 
     if platform.processor() == "arm":
@@ -44,7 +43,6 @@ def get_requirements(version = "core"):
             "tqdm>=4.65.0",
             "build",
             "twine",
-            "jaraco.functools<=4.1.0",
         ]
 
     return requirements
@@ -52,7 +50,7 @@ def get_requirements(version = "core"):
 
 setup(
     name="midap",
-    version="1.1.1",
+    version="1.1.2",
     description="A package for cell segmentation and tracking.",
     long_description="""# MIDAP: Automated image segmentation and tracking for time-lapse microscopy of bacterial cells.
 
