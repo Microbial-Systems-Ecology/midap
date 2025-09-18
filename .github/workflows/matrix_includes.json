@@ -10,14 +10,14 @@
         "os":"windows-latest",
         "label":"windows-64",
         "prefix":"C:\\Miniconda3\\envs\\midap",
-        "runs_when":"env_change",
+        "runs_when":"always",
         "installer_url":"https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe"
     },
     {
         "os":"macos-latest",
         "label":"osx-64",
         "prefix":"/Users/runner/miniconda3/envs/midap",
-        "runs_when":"env_change",
+        "runs_when":"always",
         "installer_url":"https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-x86_64.sh"
     }
 ]
