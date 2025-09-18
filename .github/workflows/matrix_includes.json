@@ -18,6 +18,6 @@
         "label":"osx-64",
         "prefix":"/Users/runner/miniconda3/envs/midap",
         "runs_when":"always",
-        "installer_url":"https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-x86_64.sh"
+        "installer_url":"https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh"
     }
 ]
