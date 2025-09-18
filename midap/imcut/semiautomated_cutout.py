@@ -8,7 +8,7 @@ from skimage.registration import phase_cross_correlation
 
 from .base_cutout import CutoutImage
 
-
+_img = None 
 # functions for the pool
 
 
