@@ -105,8 +105,7 @@ jobs:
       - name: Setup Miniforge
         uses: conda-incubator/setup-miniconda@v3
         with:
-          miniforge-variant: Miniforge
-          miniforge-version: latest
+          installer-url: ${{ matrix.installer_url }}
           activate-environment: midap
           use-mamba: true
           auto-update-conda: false
