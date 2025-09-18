@@ -1,3 +1,5 @@
+# flake8: noqa: F824
+
 import multiprocessing as mp
 
 import matplotlib.pyplot as plt
@@ -8,7 +10,8 @@ from skimage.registration import phase_cross_correlation
 
 from .base_cutout import CutoutImage
 
-_img = None 
+
+_img = None
 # functions for the pool
 
 
