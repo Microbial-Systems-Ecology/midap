@@ -16,3 +16,12 @@ try:
     from cellpose_omni import models
 except ImportError:
     __all__.remove("omni_segmentator")
+
+# we remove cellpose_sam if cellpose v4 (with cpsam support) wasn't installed
+try:
+    from cellpose import models as _cp_models
+    if "cpsam" not in _cp_models.MODEL_NAMES:
+        raise ImportError("cpsam model not available in installed cellpose version")
+except ImportError:
+    if "cellpose_sam_segmentator" in __all__:
+        __all__.remove("cellpose_sam_segmentator")

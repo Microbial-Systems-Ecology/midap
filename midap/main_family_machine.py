@@ -242,6 +242,10 @@ def run_family_machine(config, checkpoint, main_args, logger, restart=False, con
                         path_model_weights = Path(__file__).parent.parent.joinpath(
                             "model_weights", "model_weights_stardist"
                         )
+                    elif segmentation_class == "CellposeSAMSegmentation":
+                        path_model_weights = Path(__file__).parent.parent.joinpath(
+                            "model_weights", "model_weights_cellpose_sam"
+                        )
                     else:
                         path_model_weights = Path(__file__).parent.parent.joinpath(
                             "model_weights", "model_weights_legacy"
