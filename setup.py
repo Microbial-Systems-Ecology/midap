@@ -23,6 +23,7 @@ def get_requirements(version = "core"):
         "build",
         "twine",
         "jaraco.functools<=4.1.0",
+        "cellpose"
     ]
 
     if platform.processor() == "arm":
