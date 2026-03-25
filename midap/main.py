@@ -6,7 +6,7 @@ from glob import glob
 from pathlib import Path
 from shutil import copyfile
 
-import pkg_resources
+from importlib.metadata import version as get_version
 
 
 def run_module(args=None):
@@ -118,7 +118,7 @@ def run_module(args=None):
     logger = get_logger("MIDAP", args.loglevel)
 
     # print the version
-    version = pkg_resources.require("midap")[0].version
+    version = get_version("midap")
     logger.info(f"Running MIDAP version: {version}")
 
     # imports
