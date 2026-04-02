@@ -29,6 +29,15 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    # Free up disk space on Linux runners (removes ~15 GB of unused pre-installed tools)
+    - name: Free disk space
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /usr/local/lib/android
+        sudo rm -rf /opt/ghc
+        sudo rm -rf /opt/hostedtoolcache/CodeQL
+        df -h
+
     # date for the cache
     - name: Set cache date
       run: echo "DATE_YM=$(date +'%Y%m')" >> $GITHUB_ENV
@@ -78,14 +87,13 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install dependencies
+      env:
+        MIDAP_INSTALL_VERSION: euler
       run: |
-        python -m pip install --upgrade pip
-        # noraml requirements
-        pip install -r ./euler/requirements.txt
-        # tensorflow is usually taken from euler, minor flake for linting
-        pip install tensorflow==2.13.0 flake8
-        # the package
-        pip install -e .
+        python -m pip install --upgrade pip --no-cache-dir
+        # Install the package with the Euler pinned dependency set (no cellpose/SAM)
+        pip install -e . --no-cache-dir
+        pip install flake8 --no-cache-dir
 
     - name: Lint with flake8
       run: |
