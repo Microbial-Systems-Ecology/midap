@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10"]
+        python-version: ["3.11"]
 
     steps:
     - uses: actions/checkout@v4
@@ -93,7 +93,8 @@ jobs:
         python -m pip install --upgrade pip --no-cache-dir
         # Install the package with the Euler pinned dependency set (no cellpose/SAM)
         pip install -e . --no-cache-dir
-        pip install flake8 --no-cache-dir
+        # pytest is not in the Euler dep set (it's a dev tool); install it for CI
+        pip install pytest flake8 --no-cache-dir
 
     - name: Lint with flake8
       run: |

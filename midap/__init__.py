@@ -1,10 +1,20 @@
+import os
 import sys
 
 import matplotlib
 import tensorflow as tf
 
-# backend has to be set before the pyplot import, TkAgg is compatible with most clusters
-matplotlib.use("TkAgg")
+# TkAgg is used for the interactive pipeline (RectangleSelector, GUI windows, etc.).
+# On headless Linux (CI runners, HPC clusters without a display server) fall back to
+# the non-interactive Agg backend so that imports don't fail at collection time.
+def _matplotlib_backend():
+    if sys.platform.startswith("linux"):
+        if os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY"):
+            return "TkAgg"
+        return "Agg"
+    return "TkAgg"
+
+matplotlib.use(_matplotlib_backend())
 
 # TF >= 2.16 ships Keras 3 as tf.keras, which breaks the Keras 2 API used
 # throughout MIDAP's network code (functional model construction, add_loss with
