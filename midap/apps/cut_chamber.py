@@ -15,12 +15,15 @@ def main(
     cutout_class: str,
     corners: Optional[tuple] = None,
     offsets: Optional[list] = None,
+    registration: bool = True,
 ):
     """
     Performs the image cutout and alignment on all images in the paths
     :param channel: A single directory or a list of directories with the images to cut and align
     :param cutout_class: Name of the class used to perform the chamber cutout. Must be defined in a file of
                          midap.imcut and a subclass of midap.imcut.base_cutout.CutoutImage
+    :param registration: If True, perform cross-image registration using the first channel. If False,
+                         use static corners (no phase channel required).
     """
     # get the right subclass
     class_instance = None
@@ -41,7 +44,7 @@ def main(
         cut = class_instance(channel)
         if corners is not None:
             cut.corners_cut = corners
-        cut.run_align_cutout()
+        cut.run_align_cutout(registration=registration)
 
         return cut.corners_cut
     elif "Mother_Machine" in class_instance.supported_setups:
@@ -49,7 +52,7 @@ def main(
         if corners is not None and offsets is not None:
             cut.corners_cut = corners
             cut.offsets = offsets
-        cut.run_align_cutout_mother_machine()
+        cut.run_align_cutout_mother_machine(registration=registration)
 
         return cut.corners_cut, cut.offsets
 

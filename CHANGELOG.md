@@ -6,18 +6,43 @@
 - Efficiency : an existing feature now may not require as much computation or memory.
 - Fix : something that previously didn’t work as documentated – or according to reasonable expectations – should now work.
 
-## Version number
+## [1.1.2.9000] (development)
 
-Date
+2026-04-02
 
-Feature: 
-- ...
+Feature:
+- Added optional image registration toggle: users can now disable cross-image registration via an advanced option in the GUI. When disabled, no phase channel is required and the chamber selection remains static across all frames.
+- Added CellposeSAM segmentation (`CellposeSAMSegmentation`) for the Family Machine, combining Cellpose with the Segment Anything Model (SAM).
 
-Efficiency:
-- ...
+## [1.1.2]
+
+2025-09-02
 
 Fix:
-- ...
+- Updated README to warn about deprecated pip install.
+- Reverted jaraco.functools dependency version limitation due to fix from their side.
+
+## [1.1.1]
+
+2025-07-31
+
+Fix:
+- Fixed an issue that led to a crash with Mother Machine and OmniSegmentation during setup.
+
+## [1.1.0]
+
+2025-04-10
+
+Feature:
+- Added `cut_data` mode to resize dataset prior to any analysis.
+- Added `prepare_config_cluster` and `headless_cluster` mode to enable efficient Euler operations (design locally, copy data folder, execute analysis on Euler).
+- Added a shell script to automatically submit each position as a parallel run on Euler.
+
+Fix:
+- Fixed OmniSegmentation loading issue that led to crash.
+- Fixed flood of warning messages during STrack.
+- Fixed crash on empty segment maps in tracking.
+- Fixed deprecated Euler setup and source scripts.
 
 ## [1.0.1]
 
