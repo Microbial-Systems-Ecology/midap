@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10"]
+        python-version: ["3.11"]
 
     steps:
     - uses: actions/checkout@v4
@@ -93,7 +93,10 @@ jobs:
         python -m pip install --upgrade pip --no-cache-dir
         # Install the package with the Euler pinned dependency set (no cellpose/SAM)
         pip install -e . --no-cache-dir
-        # pytest is not in the Euler dep set (it's a dev tool); install it for CI
+        # On the cluster pydantic<2 is already present; pin it explicitly in CI so
+        # that btrack==0.4.6 (which uses the pydantic v1 API) does not break.
+        pip install "pydantic<2" --no-cache-dir
+        # pytest and flake8 are not in the Euler dep set; install them for CI
         pip install pytest flake8 --no-cache-dir
 
     - name: Lint with flake8
