@@ -66,7 +66,6 @@ class InteractiveCutout(CutoutImage):
         rs = RectangleSelector(
             self.ax[0],
             self.line_select_callback,
-            drawtype="box",
             useblit=True,
             button=[1],
             minspanx=5,

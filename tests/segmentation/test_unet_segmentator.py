@@ -2,6 +2,7 @@ import os
 import tempfile
 import numpy as np
 import skimage.io as io
+import pytest
 
 from midap.segmentation.unet_segmentator import UNetSegmentation
 from skimage.io import imread
@@ -141,3 +142,93 @@ def test_run_image_stack(segmentation_instance):
         img = imread(fpath)
         # same as for watershed it fails now because of border cell removal
         assert np.unique(img).size == 1
+
+
+# Fixture for utility-method tests that does not need file I/O monkeypatching
+@fixture()
+def unet_plain(tmp_path):
+    return UNetSegmentation(
+        path_model_weights=str(tmp_path), postprocessing=False, div=16, connectivity=1
+    )
+
+
+# Tests for UNetSegmentation utility methods
+############################################
+
+
+def test_pad_image_divisible(unet_plain):
+    """
+    pad_image should return a shape whose spatial dims are multiples of div=16
+    """
+    img = np.random.rand(30, 45)
+    padded = unet_plain.pad_image(img)
+    assert padded.shape[1] % 16 == 0
+    assert padded.shape[2] % 16 == 0
+
+
+def test_pad_image_batch_channel_dims(unet_plain):
+    """
+    pad_image should add a batch dim (axis 0) and a channel dim (axis -1)
+    """
+    img = np.random.rand(20, 25)
+    padded = unet_plain.pad_image(img)
+    assert padded.ndim == 4
+    assert padded.shape[0] == 1
+    assert padded.shape[-1] == 1
+
+
+def test_undo_padding_restores_shape(unet_plain):
+    """
+    undo_padding should exactly reverse pad_image
+    """
+    img = np.random.rand(37, 53)
+    padded = unet_plain.pad_image(img)
+    restored = unet_plain.undo_padding(padded)
+    assert restored.shape == img.shape
+
+
+def test_undo_padding_preserves_values(unet_plain):
+    """
+    Values in the un-padded region should be identical to the original image
+    """
+    img = np.random.rand(20, 20)
+    padded = unet_plain.pad_image(img)
+    restored = unet_plain.undo_padding(padded)
+    np.testing.assert_array_almost_equal(restored, img)
+
+
+def test_segment_region_based_output_shape(unet_plain):
+    """
+    segment_region_based should return an array with the same spatial shape as the input
+    """
+    img = np.random.rand(40, 40)
+    seg = unet_plain.segment_region_based(img, min_val=0.16, max_val=0.19)
+    assert seg.shape == img.shape
+
+
+def test_segment_region_based_binary(unet_plain):
+    """
+    segment_region_based should return only 0 and 1 values
+    """
+    img = np.random.rand(40, 40)
+    seg = unet_plain.segment_region_based(img, min_val=0.16, max_val=0.19)
+    assert set(np.unique(seg)).issubset({0, 1})
+
+
+def test_seg_method_watershed_output_count(segmentation_instance, img1):
+    """
+    seg_method_watershed should return one segmentation per input image
+    """
+    imgs = [img1, img1, img1]
+    segs = segmentation_instance.seg_method_watershed(imgs)
+    assert len(segs) == 3
+
+
+def test_seg_method_watershed_output_shape(segmentation_instance, img1):
+    """
+    Each segmentation from seg_method_watershed should have the same spatial shape
+    as the corresponding input image
+    """
+    imgs = [img1]
+    segs = segmentation_instance.seg_method_watershed(imgs)
+    assert segs[0].shape == img1.shape

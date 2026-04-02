@@ -31,9 +31,8 @@ class CellposeSAMSegmentation(SegmentationPredictor):
         super().__init__(*args, **kwargs)
 
         if platform.processor() == "arm":
-            # cpsam is not compatible with MPS (missing ops), force CPU
-            self.gpu_available = False
-            self.use_bfloat16 = False
+            self.gpu_available = torch.mps.is_available()
+            self.use_bfloat16 = True
         else:
             self.gpu_available = torch.cuda.is_available()
             self.use_bfloat16 = True

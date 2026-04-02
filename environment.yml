@@ -5,19 +5,21 @@ dependencies:
   - python=3.10.0
   - pip
   - pip:
-    - btrack>=0.4.6
-    - coverage>=7.3.2
-    - gitpython>=3.1.40
-    - jupyterlab==4.0.8
-    - matplotlib>=3.3.0,<=3.6.3
-    - napari>=0.4.18
-    - omnipose==0.4.4
-    - opencv-python>=4.8.1
-    - pandas>=2.0.2
-    - psutil>=5.9.5
-    - pytest>=7.4.3
-    - scikit-image>=0.19.3,<=0.20.0
-    - stardist>=0.8.5
-    - tensorflow>=2.13.0
-    - tqdm>=4.65.0
+    - btrack>=0.7.0,<1
+    - cellpose>=4.1.1,<5
+    - coverage>=7.13.0,<8
+    - gitpython>=3.1.46,<4
+    - jupyterlab>=4.5.0,<5
+    - matplotlib>=3.10.0,<4
+    - napari[all]
+    - omnipose>=0.4.4,<1
+    - opencv-python>=4.13.0,<5
+    - pandas>=2.3.0,<3
+    - psutil>=5.9.8,<6
+    - pytest>=8.4.0,<9
+    - scikit-image>=0.25.0,<1
+    - stardist>=0.9.0,<1
+    - tensorflow>=2.18.0,<2.19
+    - tf-keras>=2.18.0,<2.19
+    - tqdm>=4.67.0,<5
     - -e .

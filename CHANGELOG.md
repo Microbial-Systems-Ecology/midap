@@ -13,6 +13,11 @@
 Feature:
 - Added optional image registration toggle: users can now disable cross-image registration via an advanced option in the GUI. When disabled, no phase channel is required and the chamber selection remains static across all frames.
 - Added CellposeSAM segmentation (`CellposeSAMSegmentation`) for the Family Machine, combining Cellpose with the Segment Anything Model (SAM).
+- Migrated build configuration from setup.py to pyproject.toml; setup.py is now only used for the dynamic Euler/ARM dependency selection.
+
+Fix:
+- Capped TensorFlow at `<2.19` on all platforms for consistency; on Apple Silicon `tensorflow-metal` is now version-paired accordingly (`>=1.0.0,<2`) to prevent dylib path mismatches with newer TF releases.
+- Removed explicit `jaraco.functools` pin; it is now satisfied transitively and no longer needs to be listed directly.
 
 ## [1.1.2]
 

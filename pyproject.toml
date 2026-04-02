@@ -1,3 +1,36 @@
 [build-system]
 requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "midap"
+version = "1.1.2.9000"
+description = "A package for cell segmentation and tracking."
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Lukas von Ziegler",        email = "lukasv@id.ethz.ch"},
+    {name = "Oschmann Franziska", email = "franziska.oschmann@id.ethz.ch"},
+    {name = "Fluri Janis",        email = "janis.fluri@id.ethz.ch"},
+]
+keywords = ["Segmentation", "Tracking", "Biology"]
+requires-python = ">=3.9, <4"
+
+# install_requires is provided dynamically by setup.py so that the Euler cluster
+# install (MIDAP_INSTALL_VERSION=euler) can substitute its own pinned set.
+dynamic = ["dependencies"]
+
+[project.urls]
+Documentation = "https://github.com/Microbial-Systems-Ecology/midap/wiki"
+Repository    = "https://github.com/Microbial-Systems-Ecology/midap"
+
+[project.scripts]
+midap                = "midap.main:run_module"
+correct_segmentation = "midap.apps.correct_segmentation:main"
+midap_download       = "midap.apps.download_files:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools]
+include-package-data = true

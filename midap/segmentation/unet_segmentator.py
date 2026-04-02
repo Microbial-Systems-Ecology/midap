@@ -193,7 +193,7 @@ class UNetSegmentation(SegmentationPredictor):
         :returns: the segmentation of the image
         """
         elevation_map = sobel(img)
-        markers = np.zeros_like(img)
+        markers = np.zeros_like(img, dtype=int)
         markers[img < min_val] = 1
         markers[img > max_val] = 2
         segmentation = watershed(elevation_map, markers)
