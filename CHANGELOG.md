@@ -6,18 +6,24 @@
 - Efficiency : an existing feature now may not require as much computation or memory.
 - Fix : something that previously didn’t work as documentated – or according to reasonable expectations – should now work.
 
-## [1.1.2.9000] (development)
+## [1.2.0]
 
 2026-04-02
 
 Feature:
 - Added optional image registration toggle: users can now disable cross-image registration via an advanced option in the GUI. When disabled, no phase channel is required and the chamber selection remains static across all frames.
-- Added CellposeSAM segmentation (`CellposeSAMSegmentation`) for the Family Machine, combining Cellpose with the Segment Anything Model (SAM).
-- Migrated build configuration from setup.py to pyproject.toml; setup.py is now only used for the dynamic Euler/ARM dependency selection.
+- Added CellposeSAM segmentation (`CellposeSAMSegmentation`) for the Family Machine and Mother Machine, combining Cellpose with the Segment Anything Model (SAM). Requires cellpose >= 4.
+
 
 Fix:
-- Capped TensorFlow at `<2.19` on all platforms for consistency; on Apple Silicon `tensorflow-metal` is now version-paired accordingly (`>=1.0.0,<2`) to prevent dylib path mismatches with newer TF releases.
+- Migrated build configuration from setup.py to pyproject.toml; setup.py is now only used for the dynamic Euler/ARM dependency selection.
+- Updated midap to work with more recent dependency versions where possible and updated all core dependency lower bounds (TF 2.18, scikit-image 0.25, cellpose 4, btrack 0.7, matplotlib 3.10, etc.).
+- Extended test suite with coverage for all segmentation classes (`OmniSegmentation`, `StarDistSegmentation`, `CellposeSAMSegmentation`) and base-class utility methods (`scale_pixel_vals`, `postprocess_seg`, `pad_image`, `undo_padding`, `segment_region_based`, `seg_method_watershed`).
+- Added `tf-keras` shim in `midap/__init__.py` to restore Keras 2 compatibility with TF >= 2.16, which ships Keras 3 as `tf.keras`.
+- Fixed watershed segmentation crash on scikit-image >= 0.20 by ensuring markers array uses integer dtype.
+- Fixed `RectangleSelector` crash on matplotlib >= 3.7 by removing the removed `drawtype` argument.
 - Removed explicit `jaraco.functools` pin; it is now satisfied transitively and no longer needs to be listed directly.
+
 
 ## [1.1.2]
 

@@ -6,7 +6,7 @@
 - **Family Machine**: Cells grow in clusters/monolayers
 - **Mother Machine**: Cells grow in linear microfluidics chambers
 
-Version: 1.1.2.9000 (dev) | Python: 3.9–3.x | License: MIT
+Version: 1.2.0 | Python: 3.9–3.x | License: MIT
 
 ## Repository Layout
 
