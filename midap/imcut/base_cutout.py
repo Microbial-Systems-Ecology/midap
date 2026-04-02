@@ -145,13 +145,20 @@ class CutoutImage(ABC):
 
                 io.imsave(f_path, i, check_contrast=False)
 
-    def run_align_cutout(self):
+    def run_align_cutout(self, registration: bool = True):
         """
         Aligns and cut out all images from all channels
+        :param registration: If True, compute cross-image registration from the first channel and apply
+                             shifts to all channels. If False, skip registration and use static corners.
         """
 
-        self.logger.info("Aligning images...")
-        self.align_all_images()
+        if registration:
+            self.logger.info("Aligning images...")
+            self.align_all_images()
+        else:
+            self.logger.info("Skipping image registration (disabled)...")
+            n_frames = len(self.channels[0])
+            self.shifts = [np.array([0, 0]) for _ in range(n_frames - 1)]
 
         self.logger.info("Cutting images...")
         # cycle through the channels
@@ -202,13 +209,20 @@ class CutoutImage(ABC):
             self.save_cutout(aligned_cutouts_norm, files, normalization=True)
             self.save_cutout(aligned_cutouts, files, normalization=False)
 
-    def run_align_cutout_mother_machine(self):
+    def run_align_cutout_mother_machine(self, registration: bool = True):
         """
         Aligns and cut out all images from all channels
+        :param registration: If True, compute cross-image registration from the first channel and apply
+                             shifts to all channels. If False, skip registration and use static corners.
         """
 
-        self.logger.info("Aligning images...")
-        self.align_all_images()
+        if registration:
+            self.logger.info("Aligning images...")
+            self.align_all_images()
+        else:
+            self.logger.info("Skipping image registration (disabled)...")
+            n_frames = len(self.channels[0])
+            self.shifts = [np.array([0, 0]) for _ in range(n_frames - 1)]
 
         self.logger.info("Cutting images...")
         # cycle through the channels

@@ -186,6 +186,7 @@ class Config(ConfigParser):
                         "ImgThreshold": 1.0,
                         "RemoveBorder": False,
                         "FluoChange": False,
+                        "Registration": True,
                     }
                 }
             )
@@ -214,6 +215,7 @@ class Config(ConfigParser):
                         "KeepSegImagesTrack": True,
                         "ImgThreshold": 1.0,
                         "FluoChange": False,
+                        "Registration": True,
                     }
                 }
             )
@@ -258,6 +260,7 @@ class Config(ConfigParser):
             )
 
         # check the booleans
+        _ = self.getboolean(id_name, "Registration", fallback=True)
         _ = self.getboolean(id_name, "PhaseSegmentation")
         _ = self.getboolean(id_name, "KeepCopyOriginal")
         _ = self.getboolean(id_name, "KeepRawImages")

@@ -185,11 +185,13 @@ def run_mother_machine(config, checkpoint, main_args, logger, restart=False, con
                             for offset in config.getlist(identifier, "Offsets")
                         ]
                     )
+                registration = config.getboolean(identifier, "Registration", fallback=True)
                 cut_corners, offsets = cut_chamber.main(
                     channel=paths,
                     cutout_class=config.get(identifier, "CutImgClass"),
                     corners=corners,
                     offsets=offsets,
+                    registration=registration,
                 )
 
                 # save the corners if necessary
@@ -366,11 +368,13 @@ def run_mother_machine(config, checkpoint, main_args, logger, restart=False, con
                 offsets = list(
                     [int(offset) for offset in config.getlist(identifier, "Offsets")]
                 )
+                registration = config.getboolean(identifier, "Registration", fallback=True)
                 _ = cut_chamber.main(
                     channel=paths,
                     cutout_class=config.get(identifier, "CutImgClass"),
                     corners=corners,
                     offsets=offsets,
+                    registration=registration,
                 )
 
             # run full segmentation (we checkpoint after each channel)
