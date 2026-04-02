@@ -189,10 +189,12 @@ def run_family_machine(config, checkpoint, main_args, logger, restart=False, con
                             for corner in config.getlist(identifier, "Corners")
                         ]
                     )
+                registration = config.getboolean(identifier, "Registration", fallback=True)
                 cut_corners = cut_chamber.main(
                     channel=paths,
                     cutout_class=config.get(identifier, "CutImgClass"),
                     corners=corners,
+                    registration=registration,
                 )
 
                 # save the corners if necessary
@@ -241,6 +243,10 @@ def run_family_machine(config, checkpoint, main_args, logger, restart=False, con
                     elif segmentation_class == "StarDistSegmentation":
                         path_model_weights = Path(__file__).parent.parent.joinpath(
                             "model_weights", "model_weights_stardist"
+                        )
+                    elif segmentation_class == "CellposeSAMSegmentation":
+                        path_model_weights = Path(__file__).parent.parent.joinpath(
+                            "model_weights", "model_weights_cellpose_sam"
                         )
                     else:
                         path_model_weights = Path(__file__).parent.parent.joinpath(
@@ -361,10 +367,12 @@ def run_family_machine(config, checkpoint, main_args, logger, restart=False, con
                 corners = tuple(
                     [int(corner) for corner in config.getlist(identifier, "Corners")]
                 )
+                registration = config.getboolean(identifier, "Registration", fallback=True)
                 _ = cut_chamber.main(
                     channel=paths,
                     cutout_class=config.get(identifier, "CutImgClass"),
                     corners=corners,
+                    registration=registration,
                 )
 
             # run full segmentation (we checkpoint after each channel)

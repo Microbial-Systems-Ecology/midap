@@ -6,18 +6,54 @@
 - Efficiency : an existing feature now may not require as much computation or memory.
 - Fix : something that previously didn’t work as documentated – or according to reasonable expectations – should now work.
 
-## Version number
+## [1.2.0]
 
-Date
+2026-04-02
 
-Feature: 
-- ...
+Feature:
+- Added optional image registration toggle: users can now disable cross-image registration via an advanced option in the GUI. When disabled, no phase channel is required and the chamber selection remains static across all frames.
+- Added CellposeSAM segmentation (`CellposeSAMSegmentation`) for the Family Machine and Mother Machine, combining Cellpose with the Segment Anything Model (SAM). Requires cellpose >= 4.
 
-Efficiency:
-- ...
 
 Fix:
-- ...
+- Migrated build configuration from setup.py to pyproject.toml; setup.py is now only used for the dynamic Euler/ARM dependency selection.
+- Updated midap to work with more recent dependency versions where possible and updated all core dependency lower bounds (TF 2.18, scikit-image 0.25, cellpose 4, btrack 0.7, matplotlib 3.10, etc.).
+- Extended test suite with coverage for all segmentation classes (`OmniSegmentation`, `StarDistSegmentation`, `CellposeSAMSegmentation`) and base-class utility methods (`scale_pixel_vals`, `postprocess_seg`, `pad_image`, `undo_padding`, `segment_region_based`, `seg_method_watershed`).
+- Added `tf-keras` shim in `midap/__init__.py` to restore Keras 2 compatibility with TF >= 2.16, which ships Keras 3 as `tf.keras`.
+- Fixed watershed segmentation crash on scikit-image >= 0.20 by ensuring markers array uses integer dtype.
+- Fixed `RectangleSelector` crash on matplotlib >= 3.7 by removing the removed `drawtype` argument.
+- Removed explicit `jaraco.functools` pin; it is now satisfied transitively and no longer needs to be listed directly.
+
+
+## [1.1.2]
+
+2025-09-02
+
+Fix:
+- Updated README to warn about deprecated pip install.
+- Reverted jaraco.functools dependency version limitation due to fix from their side.
+
+## [1.1.1]
+
+2025-07-31
+
+Fix:
+- Fixed an issue that led to a crash with Mother Machine and OmniSegmentation during setup.
+
+## [1.1.0]
+
+2025-04-10
+
+Feature:
+- Added `cut_data` mode to resize dataset prior to any analysis.
+- Added `prepare_config_cluster` and `headless_cluster` mode to enable efficient Euler operations (design locally, copy data folder, execute analysis on Euler).
+- Added a shell script to automatically submit each position as a parallel run on Euler.
+
+Fix:
+- Fixed OmniSegmentation loading issue that led to crash.
+- Fixed flood of warning messages during STrack.
+- Fixed crash on empty segment maps in tracking.
+- Fixed deprecated Euler setup and source scripts.
 
 ## [1.0.1]
 

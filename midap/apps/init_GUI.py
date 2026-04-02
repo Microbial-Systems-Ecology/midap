@@ -206,6 +206,7 @@ def main(config_file="settings.ini", loglevel=7):
         ]
 
         # get the default channels
+        default_registration = defaults.getboolean("Registration", fallback=True)
         if defaults["Channels"] == "None":
             default_ph = ""
             default_ch = ""
@@ -218,7 +219,17 @@ def main(config_file="settings.ini", loglevel=7):
         SYMBOL_RIGHT = "▶"
         SYMBOL_DOWN = "▼"
 
-        advanced_options = [  # What to keep
+        advanced_options = [  # Registration
+            [sg.Text("Image registration:", font="bold")],
+            [
+                sg.Checkbox(
+                    "Enable image registration (requires a phase channel)",
+                    key="registration",
+                    default=default_registration,
+                )
+            ],
+            [sg.Text("")],
+            # What to keep
             [sg.Text("Keep the following files: ", font="bold")],
             [
                 sg.Checkbox(
@@ -480,11 +491,10 @@ def main(config_file="settings.ini", loglevel=7):
         # Set the general parameter
         section = {}
 
-        # get all the channels
-        channels = values["ch1"]
-        # Only an emtpy string is False
-        if values["ch2"]:
-            channels += f",{values['ch2']}"
+        # get all the channels; filter empty parts so a missing phase channel
+        # doesn't produce a leading comma (which would create a spurious empty channel)
+        section["Registration"] = values["registration"]
+        channels = ",".join(p for p in [values["ch1"], values["ch2"]] if p)
         section["Channels"] = channels
 
         # Read out the Radio Button
