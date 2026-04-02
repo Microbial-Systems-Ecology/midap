@@ -47,7 +47,7 @@ def get_requirements():
     # ------------------------------------------------------------------ #
     requirements = [
         "btrack>=0.7.0,<1",
-        "cellpose>=3.1.1,<4",
+        "cellpose>=4.1.1,<5",
         "coverage>=7.13.0,<8",
         "gitpython>=3.1.46,<4",
         "jupyterlab>=4.5.0,<5",
