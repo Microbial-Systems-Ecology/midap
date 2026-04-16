@@ -55,7 +55,7 @@ class OmniSegmentationJupyter(OmniSegmentation):
                           'bact_fluor_cp': 'bact_fluor_cp',
                           'bact_phase_omni': 'bact_phase_omni',
                           'bact_fluor_omni': 'bact_fluor_omni',}
-            for custom_model in Path(self.path_model_weights).iterdir():
+            for custom_model in self._iter_model_weights():
                 label_dict.update({custom_model.name: custom_model})
 
             self.all_segs_label = {}
