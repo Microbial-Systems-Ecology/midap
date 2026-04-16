@@ -64,7 +64,7 @@ class CellposeSAMSegmentation(SegmentationPredictor):
 
             # built-in cpsam model plus any custom models from path_model_weights
             label_dict = {"cpsam": "cpsam"}
-            for custom_model in Path(self.path_model_weights).iterdir():
+            for custom_model in self._iter_model_weights():
                 if (
                     custom_model.is_file()
                     and custom_model.suffix == ""

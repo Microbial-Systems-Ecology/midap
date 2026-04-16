@@ -68,7 +68,7 @@ class OmniSegmentation(SegmentationPredictor):
                 "bact_phase_omni": "bact_phase_omni",
                 "bact_fluor_omni": "bact_fluor_omni",
             }
-            for custom_model in Path(self.path_model_weights).iterdir():
+            for custom_model in self._iter_model_weights():
                     if custom_model.is_file() and custom_model.suffix == "" and not custom_model.name.startswith("."): # Filter out any other files that contain no weights (i.e .jsons)
                         label_dict.update({custom_model.name: custom_model})
             figures = []

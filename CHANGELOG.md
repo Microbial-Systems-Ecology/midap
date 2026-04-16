@@ -6,6 +6,13 @@
 - Efficiency : an existing feature now may not require as much computation or memory.
 - Fix : something that previously didn’t work as documentated – or according to reasonable expectations – should now work.
 
+## [1.2.1]
+
+2026-04-16
+
+Fix:
+- Fixed crash on startup when a segmentation model's custom weights folder is missing (e.g. `model_weights_cellpose_sam`). All segmentors now gracefully skip the custom-weights scan if the directory does not exist, falling back to built-in models only.
+
 ## [1.2.0]
 
 2026-04-02

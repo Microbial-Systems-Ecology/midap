@@ -1,6 +1,7 @@
 import os
 import re
 from abc import ABC, abstractmethod
+from pathlib import Path
 from typing import Union
 
 import numpy as np
@@ -164,6 +165,18 @@ class SegmentationPredictor(ABC):
         img = np.array(img)
         img = np.clip(img, img.min(), self.threshold * img.max())
         return (img - img.min()) / (img.max() - img.min())
+
+    def _iter_model_weights(self):
+        """
+        Returns an iterator over the model weights directory. If the directory does not exist
+        (e.g. no custom weights are shipped for this segmentor), returns an empty iterator
+        instead of raising FileNotFoundError.
+        :returns: An iterator over Path objects in self.path_model_weights, or an empty iterator
+        """
+        weights_path = Path(self.path_model_weights)
+        if not weights_path.exists():
+            return iter([])
+        return weights_path.iterdir()
 
     @abstractmethod
     def set_segmentation_method(self, path_to_cutouts):
