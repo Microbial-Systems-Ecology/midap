@@ -90,7 +90,7 @@ class StarDistSegmentation(SegmentationPredictor):
             # get all trained models
             model_weights = [
                 path
-                for path in Path(self.path_model_weights).iterdir()
+                for path in self._iter_model_weights()
                 if path.is_dir()
             ]
             # labels = ['2D_versatile_fluo', '2D_paper_dsb2018', '2D_versatile_he']
