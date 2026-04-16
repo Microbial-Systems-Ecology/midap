@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "midap"
-version = "1.2.0.9000"
+version = "1.2.1"
 description = "A package for cell segmentation and tracking."
 readme = "README.md"
 license = {text = "MIT"}

@@ -6,7 +6,7 @@
 - Efficiency : an existing feature now may not require as much computation or memory.
 - Fix : something that previously didn’t work as documentated – or according to reasonable expectations – should now work.
 
-## [1.2.0.9000]
+## [1.2.1]
 
 2026-04-16
 
